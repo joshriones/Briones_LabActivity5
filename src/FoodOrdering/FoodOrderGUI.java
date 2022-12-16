@@ -1,10 +1,11 @@
 package FoodOrdering;
 
 import javax.swing.*;
+import java.awt.dnd.InvalidDnDOperationException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class FoodOrderGUI extends JFrame{
+public class FoodOrderGUI extends JFrame {
     private JPanel pnlMain;
     private JCheckBox cPizza;
     private JRadioButton rbNone;
@@ -23,33 +24,48 @@ public class FoodOrderGUI extends JFrame{
         btnOrder.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                double res = totalCost();
-                String txt = String.format("The total price is Php %.2f", res);
-                JOptionPane.showMessageDialog(pnlMain, txt);
+                totalCost();
+
             }
         });
 
     }
-    public double totalCost() {
-        ButtonGroup buttons = new ButtonGroup();
-        buttons.add(rbNone);
-        buttons.add(rb5);
-        buttons.add(rb10);
-        buttons.add(rb15);
 
-        double total = 0;
-            if (cPizza.isSelected())
+    public void totalCost() {
+        try {
+            ButtonGroup buttons = new ButtonGroup();
+            buttons.add(rbNone);
+            buttons.add(rb5);
+            buttons.add(rb10);
+            buttons.add(rb15);
+
+            double total = 0;
+            int selected = 0;
+
+            if (cPizza.isSelected()) {
                 total += 100;
-            if (cBurger.isSelected())
+                selected = 1;
+            }
+            if (cBurger.isSelected()) {
                 total += 80;
-            if (cFries.isSelected())
+                selected = 1;
+            }
+            if (cFries.isSelected()) {
                 total += 65;
-            if (cSoftDrinks.isSelected())
+                selected = 1;
+            }
+            if (cSoftDrinks.isSelected()) {
                 total += 55;
-            if (cTea.isSelected())
+                selected = 1;
+            }
+            if (cTea.isSelected()) {
                 total += 50;
-            if (cSundae.isSelected())
+                selected = 1;
+            }
+            if (cSundae.isSelected()) {
                 total += 40;
+                selected = 1;
+            }
 
             boolean flag = false;
             if (rbNone.isSelected()) {
@@ -65,7 +81,14 @@ public class FoodOrderGUI extends JFrame{
                 total = total - (total * 0.15);
                 flag = true;
             }
-        return total;
+            if (!flag || selected == 0) {
+                throw new InvalidDnDOperationException("No items or discount selected");
+            }
+            String txt = String.format("The total price is Php %.2f", total);
+            JOptionPane.showMessageDialog(pnlMain, txt);
+        } catch (InvalidDnDOperationException e) {
+            JOptionPane.showMessageDialog(pnlMain, e.getMessage(), "Invalid", JOptionPane.ERROR_MESSAGE);
+        }
     }
     public static void main(String[] args) {
         FoodOrderGUI foodApp = new FoodOrderGUI();
