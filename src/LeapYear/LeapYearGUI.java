@@ -10,6 +10,8 @@ public class LeapYearGUI extends JFrame{
 
     private JTextField tfYear;
     private JButton btnCheckYear;
+
+    private JLabel lYear;
     private JPanel pnlMain;
 
     public LeapYearGUI(){
