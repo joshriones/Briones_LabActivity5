@@ -36,7 +36,7 @@ public class LeapYearGUI extends JFrame{
                 JOptionPane.showMessageDialog(pnlMain,"Not Leap Year");
             }
         }catch (InputMismatchException e){
-            JOptionPane.showMessageDialog(pnlMain,"Number inputs only", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(pnlMain,"Number inputs only", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }
