@@ -1,16 +1,16 @@
 package LeapYear;
 
 import javax.swing.*;
-
-public class LeapYearGUI {
+import java.util.Scanner;
+public class LeapYearGUI extends JFrame{
 
     private JTextField tfYear;
     private JButton btnCheckYear;
     private JLabel lYear;
     private JPanel pnlMain;
-
     public static void main(String[] args) {
-
+        Scanner sc = new Scanner(System.in);
     }
+
 }
 
